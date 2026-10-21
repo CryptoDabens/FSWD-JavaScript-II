@@ -1,0 +1,19 @@
+# Dependencias
+node_modules/
+
+# Logs
+*.log
+
+# Variables de entorno
+.env
+.env.local
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# npm
+npm-debug.log*
