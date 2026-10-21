@@ -29,6 +29,9 @@ async function funcionAsincronaDeclarada() {
 
         // Repetir para números del 1 al 5
 
+
+
+        
         console.log("Fin Async Function");
     }   catch (erro) { 
         console.error(error);

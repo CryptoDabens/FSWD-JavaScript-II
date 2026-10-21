@@ -1,6 +1,9 @@
 # Dependencias
 node_modules/
 
+# Ejercicios
+01 npm/
+
 # Logs
 *.log
 
