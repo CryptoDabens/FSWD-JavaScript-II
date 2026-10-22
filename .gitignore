@@ -1,6 +1,7 @@
 # Dependencias
 node_modules/
-
+dist/
+.parcel-cache/
 # Ejercicios
 01 npm/
 05 Ajax/

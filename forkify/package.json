@@ -5,9 +5,13 @@
   "license": "ISC",
   "author": "davidhijar",
   "type": "commonjs",
-  "main": "index.js",
+  "source": "index.html",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html --dist-dir ./dist --no-optimize"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.16.4",
+    "parcel": "^2.16.4"
   }
 }
