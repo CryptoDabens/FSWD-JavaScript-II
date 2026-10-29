@@ -19,11 +19,23 @@ If the function returns a value, JavaScript automatically wraps that value in a 
 Crea una función asíncrona llamada showRecipe. En el try, crea una constante "resp",iguálala a un "await" para que espere el resultado de la función de búsqueda (fetch), la cual devolverá una promesa, y pásale como parámetro la siguiente URL válida para la API:*/ 
 async function showRecipe() {
   try {
+    //A2.4a,b,c
+    const id = window.location.hash.slice(1);
+    if (!id) return; // A2.6 PAraque no se quede esperando si no se recibe "id".
     renderSpinner(recipeContainer);
-    const resp = await fetch("https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886");
+    
+    console.log(id);
+    
     // Paso 15.b : b. Una vez que tengas el resultado, es necesario convertirlo a JSON. Para ello, declara una constante data, que será igual a resp, utilizando el método json() (no olvides utilizar el await).
+    // A2.4.d Modifica en la función de búsqueda la URL estática para que ahora reciba la URL dinámico, pasándole la variable ${id}.
+    const resp = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
+    
     const data = await resp.json();
+    if (!resp.ok)
+      throw new Error(`Recipe not found (${resp.status})`);
+
     // Paso 15.c:
+    console.log('RESPUESTA API');
     console.log(resp);
     console.log(data);
     
@@ -154,20 +166,30 @@ async function showRecipe() {
 
 }
 
-showRecipe();
+// showRecipe(); 
+// A2.2
 
 
 function renderSpinner(parentEl){
   const markup = `
       <div class="spinner">
         <svg>
-          <use href="src/img/icons.svg#icon-loader"></use>
+          <use href="${icons}#icon-loader"></use>
         </svg>
       </div>`
-  console.log(parentEl);
+  // console.log(parentEl);
       parentEl.innerHTML = '';    
   parentEl.insertAdjacentHTML('afterbegin', markup)
-  console.log(parentEl);
+  // console.log(parentEl);
 }
 
+// A2.1,2 Con esto ahora se llamará a la función showRecipe cada que cambie el hash, por tanto, se puede eliminar la llamada a la función showRecipe.
+// lo sustituye el paso 5.b 
+// window.addEventListener('hashchange', showRecipe);
+// A2.5a 
+// window.addEventListener('load',showRecipe);
 
+const eventos = ['hashchange','load'];
+eventos.forEach((ev) => {
+  addEventListener(ev,showRecipe);
+});
