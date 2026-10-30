@@ -190,6 +190,6 @@ function renderSpinner(parentEl){
 // window.addEventListener('load',showRecipe);
 
 const eventos = ['hashchange','load'];
-eventos.forEach((ev) => {
-  addEventListener(ev,showRecipe);
+eventos.forEach(ev => {
+  window.addEventListener(ev,showRecipe);
 });
