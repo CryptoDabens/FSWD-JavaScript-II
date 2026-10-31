@@ -12,7 +12,11 @@
 
     <link rel="stylesheet" href="src/sass/main.scss" />
     <script type="module" src="src/js/controller.js"></script> <!-- Paso 12: coloca en
-la referencia que es una llamada al controller de tipo módulo. Se borró "defer" (¿para qué sirve?)-->
+la referencia que es una llamada al controller de tipo módulo. Se borró "defer" (¿para qué sirve?) -> En un script tradicional, "defer" hace que el navegador descargue el archivo mientras sigue leyendo el HTML y espere a que termine de leerlo para ejecutar el JavaScript. Así, el código puede encontrar los elementos de la página que necesita.
+
+En este caso se quitó porque los scripts con type="module" ya se ejecutan de forma diferida por defecto. Por eso, agregar defer sería redundante. El navegador primero termina de interpretar el HTML y después ejecuta el módulo.
+
+Una diferencia útil: async puede ejecutar el archivo tan pronto como termine de descargarse, sin esperar a que se haya procesado todo el HTML; defer espera a que el HTML esté listo. Para este módulo, no necesitas agregar ninguno de los dos atributos.-->
 
     <title>forkify // Search over 1,000,000 recipes</title>
   </head>
@@ -88,8 +92,7 @@ la referencia que es una llamada al controller de tipo módulo. Se borró "defer
       <div class="search-results">
         <ul class="results">
           <a href="#5ed6604591c37cdc054bc886">Recipe 1</a>
-          <a href="#5ed6604591c37cdc054bccde">Recipe 2</a>
-          <a href="#664c8f193e7aa067e94e8297">Recipe 3</a>
+          <a href="#664c8f193e7aa067e94e8297">Recipe 2</a>
           <!-- 
           <li class="preview">
             <a class="preview__link preview__link--active" href="#23456">

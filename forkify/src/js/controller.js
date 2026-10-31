@@ -30,9 +30,9 @@ async function showRecipe() {
     // A2.4.d Modifica en la función de búsqueda la URL estática para que ahora reciba la URL dinámico, pasándole la variable ${id}.
     const resp = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
     
-    const data = await resp.json();
+    const data = await resp.json(); // parsea resp a JSON
     if (!resp.ok)
-      throw new Error(`Recipe not found (${resp.status})`);
+      throw new Error(`Recipe not found (${resp.status})`); // En este proyecto concreto, parsear primero tiene sentido porque quieres recuperar el mensaje que viene en el cuerpo del error. En una API genérica o desconocida, revisar resp.ok antes suele ser más seguro.throw detiene la ejecución de la función actual y devuelve el control al catch más cercano
 
     // Paso 15.c:
     console.log('RESPUESTA API');
@@ -40,7 +40,7 @@ async function showRecipe() {
     console.log(data);
     
     // Paso 15.j: Para poder visualizar los datos que se necesitan desplegar en la pantalla, crea la variable recipe del tipo objeto e iguálala a data.data
-    let recipe = data.data.recipe;
+    let recipe = data.data.recipe; // Aquí no funciona con "const" ¿por qué?
 
     // Paso 15.k: Ahora desestructura recipe para manejar la semántica camelCase, de la siguiente manera:
     recipe = {
@@ -155,9 +155,7 @@ async function showRecipe() {
     // Paso 20: Recorre el arreglo recipe.ingredients y aplícale la función "map" para que se puedan visualizar cada uno de los elementos. Pásale como argumentos al map la función flecha img que envuelve al elemento de la lista con clase recipe_ingredient.
     
     
-    // ¿Por qué está así directo $ñ{}
-    
-    
+        
   }  
   
   catch(err) {
@@ -193,3 +191,4 @@ const eventos = ['hashchange','load'];
 eventos.forEach(ev => {
   window.addEventListener(ev,showRecipe);
 });
+
