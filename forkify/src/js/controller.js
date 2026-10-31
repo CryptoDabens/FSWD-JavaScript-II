@@ -1,5 +1,15 @@
+// Avance 2: Página 2, Paso 1.b: En el controller.js realiza las siguientes modificaciones:
+// i. Importa todas las funciones como model desde el archivo model.js.
+import * as model from './model.js';
+
+
+
+
+// Avance 1. Inicio
 const recipeContainer = document.querySelector('.recipe'); // el "." es para indicar que es una clase, y se debe usar querySelector, si se buscara un "id" se utilizaría getElementById('nombre')
+
 const icons = new URL('../img/icons.svg', import.meta.url).href; // Parcel v2
+
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
@@ -22,28 +32,42 @@ async function showRecipe() {
     //A2.4a,b,c
     const id = window.location.hash.slice(1);
     if (!id) return; // A2.6 PAraque no se quede esperando si no se recibe "id".
-    renderSpinner(recipeContainer);
     
+    renderSpinner(recipeContainer);
+
+    // Avance 2 pag 2 1.b.ii. Manda a llamar la función model.loadRecipe con id como parámetro justo en donde se cortó el código que llevas al archivo model.js (como es una función asíncrona, recuerda colocar el await). Este bloque reemplaza el bloque que escribiste. Recuerda que model.state contiene una propiedad recipe, así que la desestructuración { recipe } la extrae.
+    await model.loadRecipe(id);
+    const { recipe } = model.state; //// iii. Declara una constante recipe desestructurada y asígnale model.state.
+ 
+    console.log(recipe); // para prueba    
     console.log(id);
     
     // Paso 15.b : b. Una vez que tengas el resultado, es necesario convertirlo a JSON. Para ello, declara una constante data, que será igual a resp, utilizando el método json() (no olvides utilizar el await).
     // A2.4.d Modifica en la función de búsqueda la URL estática para que ahora reciba la URL dinámico, pasándole la variable ${id}.
-    const resp = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
+
+    /* Avance 2. 1.b: Desde aquí hasta que cierre este cometnario, se eliminan las líneas siguientes:
+    * const resp = await fetch(...)
+    * const data = await resp.json()
+    * La validación if (!resp.ok)
+    * Los console.log de la respuesta de la API (paso 15.c)
+    * let recipe = data.data.recipe y la desestructuración a camelCase*/ 
     
-    const data = await resp.json(); // parsea resp a JSON
-    if (!resp.ok)
-      throw new Error(`Recipe not found (${resp.status})`); // En este proyecto concreto, parsear primero tiene sentido porque quieres recuperar el mensaje que viene en el cuerpo del error. En una API genérica o desconocida, revisar resp.ok antes suele ser más seguro.throw detiene la ejecución de la función actual y devuelve el control al catch más cercano
+    // const resp = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
+    
+    // const data = await resp.json(); // parsea resp a JSON // Se elimina en el avance 2 1.b
+    // if (!resp.ok)
+      // throw new Error(`Recipe not found (${resp.status})`); // En este proyecto concreto, parsear primero tiene sentido porque quieres recuperar el mensaje que viene en el cuerpo del error. En una API genérica o desconocida, revisar resp.ok antes suele ser más seguro.throw detiene la ejecución de la función actual y devuelve el control al catch más cercano
 
     // Paso 15.c:
-    console.log('RESPUESTA API');
-    console.log(resp);
-    console.log(data);
+    // console.log('RESPUESTA API');
+    // console.log(resp);
+    // console.log(data);
     
     // Paso 15.j: Para poder visualizar los datos que se necesitan desplegar en la pantalla, crea la variable recipe del tipo objeto e iguálala a data.data
-    let recipe = data.data.recipe; // Aquí no funciona con "const" ¿por qué?
+    // let recipe = data.data.recipe; // Aquí no funciona con "const" ¿por qué?. Resp: porque la línea siguiente hace recipe = { ... }, y eso reasigna la variable. Con const el JavaScript marca error. Al mover la desestructuración al modelo, esa reasignación desaparece y const ya no causa problema.
 
     // Paso 15.k: Ahora desestructura recipe para manejar la semántica camelCase, de la siguiente manera:
-    recipe = {
+    /* recipe = {
       id: recipe.id,
       title: recipe.title,
       publisher: recipe.publisher,
@@ -52,9 +76,11 @@ async function showRecipe() {
       servings: recipe.servings,
       cookTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
-    };
+    };*/
+    // En el Avance 2 debe borrarse esta destructuración de arriba. ya no es necesaria 
+
     // Paso 15.l: 
-    console.log(recipe);
+    // console.log(recipe);
     
     // Paso 16 y 17:  Como puedes notar, no se visualiza el contenido de la consulta en la página. para hacerlo, ve al archivo index.html y copia desde la línea 161 a 253 al archivo controller.js dentro de la función en la variable markup. Utiliza template string (usar backticks --> ` `).
     const markup = `        
