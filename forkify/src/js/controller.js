@@ -1,7 +1,8 @@
 // Avance 2: Página 2, Paso 1.b: En el controller.js realiza las siguientes modificaciones:
 // i. Importa todas las funciones como model desde el archivo model.js.
 import * as model from './model.js';
-
+// Avance 2 pag Paso 2.c.i.: Importa recipeView 
+import recipeView from './views/RecipeView.js'; 
 
 
 
@@ -27,7 +28,8 @@ This is true even if you return a normal value.
 If the function returns a value, JavaScript automatically wraps that value in a Promise.*/
 /* Paso 15.a:  
 Crea una función asíncrona llamada showRecipe. En el try, crea una constante "resp",iguálala a un "await" para que espere el resultado de la función de búsqueda (fetch), la cual devolverá una promesa, y pásale como parámetro la siguiente URL válida para la API:*/ 
-async function showRecipe() {
+
+async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nombre de la función de ShowRecipe a controlRecipes
   try {
     //A2.4a,b,c
     const id = window.location.hash.slice(1);
@@ -37,9 +39,9 @@ async function showRecipe() {
 
     // Avance 2 pag 2 1.b.ii. Manda a llamar la función model.loadRecipe con id como parámetro justo en donde se cortó el código que llevas al archivo model.js (como es una función asíncrona, recuerda colocar el await). Este bloque reemplaza el bloque que escribiste. Recuerda que model.state contiene una propiedad recipe, así que la desestructuración { recipe } la extrae.
     await model.loadRecipe(id);
-    const { recipe } = model.state; //// iii. Declara una constante recipe desestructurada y asígnale model.state.
+    // const { recipe } = model.state; //// iii. Declara una constante recipe desestructurada y asígnale model.state. --> Avance 2 pag 4 Paso 2 Elimina esta instrucción
  
-    console.log(recipe); // para prueba    
+    // console.log(recipe); // para prueba    
     console.log(id);
     
     // Paso 15.b : b. Una vez que tengas el resultado, es necesario convertirlo a JSON. Para ello, declara una constante data, que será igual a resp, utilizando el método json() (no olvides utilizar el await).
@@ -83,7 +85,9 @@ async function showRecipe() {
     // console.log(recipe);
     
     // Paso 16 y 17:  Como puedes notar, no se visualiza el contenido de la consulta en la página. para hacerlo, ve al archivo index.html y copia desde la línea 161 a 253 al archivo controller.js dentro de la función en la variable markup. Utiliza template string (usar backticks --> ` `).
-    const markup = `        
+    
+    // Debe salir porque ya se pasó a RecipeView.js
+    /* const markup = `        
         <figure class="recipe__fig">
           <img src="${recipe.image}" alt="Tomato" class="recipe__img" />
           <h1 class="recipe__title">
@@ -173,13 +177,19 @@ async function showRecipe() {
           </a>
         </div>
         `;
-
+    */
     // Paso 18: Como puedes observar, aún se visualiza el mensaje inicial. Para quitarlo, utiliza el método innerHTML sobre recipeContainer y asígnale una cadena vacía.
-    recipeContainer.innerHTML = '';
+    
+    //recipeContainer.innerHTML = '';
+    
     // Paso 19: Para visualizar el nuevo contenido en la página, utiliza el método insertAdjacentHTML en el recipeContainer y pásale como parámetros afterbegin y la variable markup.
-    recipeContainer.insertAdjacentHTML('afterbegin', markup); // Arg 1 posición y Arg 2, la variable
+    
+    // recipeContainer.insertAdjacentHTML('afterbegin', markup); // Arg 1 posición y Arg 2, la variable
+    
     // Paso 20: Recorre el arreglo recipe.ingredients y aplícale la función "map" para que se puedan visualizar cada uno de los elementos. Pásale como argumentos al map la función flecha img que envuelve al elemento de la lista con clase recipe_ingredient.
     
+    // Avance 2 pag 3 Paso 2.c.iv: Instancia recipeView.render y pásale como parámetro model.state.recipe en el lugar donde se cortó el código que se colocó en la vista.
+    recipeView.render(model.state.recipe);
     
         
   }  
@@ -193,8 +203,8 @@ async function showRecipe() {
 // showRecipe(); 
 // A2.2
 
-
-function renderSpinner(parentEl){
+// Avance 2 pag 3 Paso 2.b.i.11.d Pide cortar la funcion rederSpinner y llevarla a RecipeView.js
+/*function renderSpinner(parentEl){
   const markup = `
       <div class="spinner">
         <svg>
@@ -205,7 +215,7 @@ function renderSpinner(parentEl){
       parentEl.innerHTML = '';    
   parentEl.insertAdjacentHTML('afterbegin', markup)
   // console.log(parentEl);
-}
+}*/
 
 // A2.1,2 Con esto ahora se llamará a la función showRecipe cada que cambie el hash, por tanto, se puede eliminar la llamada a la función showRecipe.
 // lo sustituye el paso 5.b 

@@ -1,20 +1,24 @@
+// Avance 2 pag Paso 3.c
+import {API_URL} from './config.js';
+
 // Modelo.js
 // Aquí se escribirá el modelo completo y tendrá objetos para la receta, la búsqueda y los marcadores y una función para cargar las recetas. Para realizar esta funcionalidad, haz lo siguiente: 
 // a. En la carpeta js, crea el archivo model.js y dentro del cuerpo del objeto agrega lo siguiente: 
 // i.Un objeto state que, a su vez, tendrá dentro de él un objeto recipe vacío.
 // ii. Exporta este estado para que lo pueda visualizar el controlador. 
-// iii. Crea la función asíncrona loadRecipe que será la encargada de obtener la receta de la API.
-// iv. Exporta la función loadRecipe.
-
 export const state = { recipe: {} };
 
+// iii. Crea la función asíncrona loadRecipe que será la encargada de obtener la receta de la API.
+// iv. Exporta la función loadRecipe.
 export async function loadRecipe(id) {
     
     
-    //Avance 2: Paso 1.a.v.1.a.b.c
+    // Avance 2: Paso 1.a.v.1.a.b.c
     try {
-        const resp = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
-
+        // const resp = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`); // Valor anterior
+        // Valor nuevo 
+        // Avance 2: Paso 1.a.v.1.a.b.d
+        const resp = await fetch(`${API_URL}${id}`);
         const data = await resp.json(); // parsea resp a JSON
         if (!resp.ok)
             throw new Error(`Recipe not found (${resp.status})`);
