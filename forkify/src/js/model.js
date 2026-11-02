@@ -1,5 +1,6 @@
 // Avance 2 pag Paso 3.c
-import {API_URL} from './config.js';
+import { API_URL } from './config.js';
+import { getJSON } from './helpers.js';
 
 // Modelo.js
 // Aquí se escribirá el modelo completo y tendrá objetos para la receta, la búsqueda y los marcadores y una función para cargar las recetas. Para realizar esta funcionalidad, haz lo siguiente: 
@@ -15,14 +16,19 @@ export async function loadRecipe(id) {
     
     // Avance 2: Paso 1.a.v.1.a.b.c
     try {
-        // const resp = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`); // Valor anterior
-        // Valor nuevo 
         // Avance 2: Paso 1.a.v.1.a.b.d
-        const resp = await fetch(`${API_URL}${id}`);
-        const data = await resp.json(); // parsea resp a JSON
-        if (!resp.ok)
-            throw new Error(`Recipe not found (${resp.status})`);
-
+        // const resp = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`); // Valor anterior
+        // Valor nuevo:
+        /* Las siguientes const se quedan obsoleta por Avance 2 pag 5 paso 4.a.viii
+        // const resp = await fetch(`${API_URL}${id}`);
+        // const data = await resp.json(); 
+        // if (!resp.ok)
+           // throw new Error(`Recipe not found (${resp.status})`);
+        */
+        
+        // Avance 2 pag 5 paso 4.a.viii
+        const data = await getJSON(`${API_URL}${id}`); // <-- El argumento `${API_URL}${id}` se recibe en helpers.js como parámetro de la función getJSON() 
+                
         // Paso 1.a.v.3.b. Declara como const el objeto recipe (en controller.js es "let" y con "const" no funciona).    
         const recipe = data.data.recipe;
 
@@ -43,7 +49,7 @@ export async function loadRecipe(id) {
 
     // Paso 2:1.a.v.2: 
     catch (err) {
-        alert(`Error: ${err}`);
+        alert(`${err}💥💥💥💥`);
 
     }
 }
