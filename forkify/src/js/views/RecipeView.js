@@ -1,4 +1,4 @@
-import Fraction from 'fraction';
+import Fraction from 'fraction.js';
 
 
 const icons = new URL('../../img/icons.svg', import.meta.url).href; // 2.b.i.11.d

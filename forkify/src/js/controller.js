@@ -35,7 +35,9 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
     const id = window.location.hash.slice(1);
     if (!id) return; // A2.6 PAraque no se quede esperando si no se recibe "id".
     
-    renderSpinner(recipeContainer);
+    recipeView.renderSpinner(); // Sustituye al renderSpinner(recipeContainer)
+    
+    // renderSpinner(recipeContainer);
 
     // Avance 2 pag 2 1.b.ii. Manda a llamar la función model.loadRecipe con id como parámetro justo en donde se cortó el código que llevas al archivo model.js (como es una función asíncrona, recuerda colocar el await). Este bloque reemplaza el bloque que escribiste. Recuerda que model.state contiene una propiedad recipe, así que la desestructuración { recipe } la extrae.
     await model.loadRecipe(id);
@@ -225,6 +227,6 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
 
 const eventos = ['hashchange','load'];
 eventos.forEach(ev => {
-  window.addEventListener(ev,showRecipe);
+  window.addEventListener(ev,controlRecipes);
 });
 
