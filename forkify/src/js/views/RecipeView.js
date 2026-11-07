@@ -4,18 +4,18 @@ const icons = new URL('../../img/icons.svg', import.meta.url).href; // 2.b.i.11.
 
 // Avance 2 pag 3, Paso 2.b
 class RecipeView {
-    #parentElement = document.querySelector('.recipe'); // 2.b.i.1
-    #data; // 2.b.i.2
+  #parentElement = document.querySelector('.recipe'); // 2.b.i.1
+  #data; // 2.b.i.2
 
-    render(data) { // 2.b.i.3
-        this.#data = data; // 2.b.i.4
-        const markup = this.#generateMarkup(); // 2.b.i.5
-        this.#clean(); // 2.b.i.9.b
-        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-    }
+  render(data) { // 2.b.i.3
+    this.#data = data; // 2.b.i.4
+    const markup = this.#generateMarkup(); // 2.b.i.5
+    this.#clean(); // 2.b.i.9.b
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
 
-    #generateMarkup() { // 2.b.i.6, 7, 8
-        return `        
+  #generateMarkup() { // 2.b.i.6, 7, 8
+    return `        
         <figure class="recipe__fig">
           <img src="${this.#data.image}" alt="Tomato" class="recipe__img" />
           <h1 class="recipe__title">
@@ -68,8 +68,8 @@ class RecipeView {
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
             ${this.#data.ingredients
-              .map(ing => {
-                return `
+        .map(ing => {
+          return `
                   <li class="recipe__ingredient">
                     <svg class="recipe__icon">
                       <use href="${icons}#icon-check"></use>
@@ -80,9 +80,9 @@ class RecipeView {
                       ${ing.description}
                     </div>
                   </li>`;
-                })
-              .join('')
-            }
+        })
+        .join('')
+      }
           </ul>
         </div>
 
@@ -105,32 +105,47 @@ class RecipeView {
           </a>
         </div>
         `;
-    }
+  }
 
-    #clean() { // 2.b.i.9.a
-        this.#parentElement.innerHTML = '';
-    }
-    
-    renderSpinner() {
+  #clean() { // 2.b.i.9.a
+    this.#parentElement.innerHTML = '';
+  }
+
+  renderSpinner() {
     const markup = `
             <div class="spinner">
                 <svg>
                     <use href="${icons}#icon-loader"></use>
                 </svg>
             </div>`
-    
+
     this.#parentElement.innerHTML = '';
     this.#parentElement.insertAdjacentHTML('afterbegin', markup)
-    
-}
-    // Avance 3 pag 14 Paso 1.b: En el archivo recipeView.js crea el método addHandlerRender dentro de la clase RecipeView y debajo del renderSpinner. Envíale como parámetro un handler y en el cuerpo, pega el código copiado del archivo controller.js
-    addHandlerRender(handler) {
-      const eventos = ['hashchange','load'];
-      eventos.forEach(ev => {
+
+  }
+  // Avance 3 pag 14 Paso 1.b: En el archivo recipeView.js crea el método addHandlerRender dentro de la clase RecipeView y debajo del renderSpinner. Envíale como parámetro un handler y en el cuerpo, pega el código copiado del archivo controller.js
+  addHandlerRender(handler) {
+    const eventos = ['hashchange', 'load'];
+    eventos.forEach(ev => {
       window.addEventListener(ev, handler); // Avance 3 pag 14 Paso 1.c cambiar el parámetro de la función anónima a handler, que es la función que se envía desde controller.js y que tiene el contexto para ejecutar controlRecipes.
     });
-    }
+  }
 
+  // Avance 3 pag 14 Paso 2, a. i-vii
+  renderError(message = this._errorMessage) {
+    const _errorMessage = 'We could not find that recipe. Please try another one!';
+    const markuop = `
+      <div class="error">
+        <div>
+          <svg>
+            <use href="${icons}.${message}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${message}</p> 
+      </div>`
+    this.#clean(); // 2.b.i.9.b
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);  
+  }
 }
 
-export default new RecipeView(); // Avance 2 pag 4 2.b.ii
+export default new RecipeView();40 // Avance 2 pag 4 2.b.ii
