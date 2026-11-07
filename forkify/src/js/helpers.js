@@ -2,7 +2,7 @@
 
 import { TIMEOUT_SEC} from './config.js';
 
-// Aance 2 pag 5 Paso 4.b
+// Aance 2 pag 5 Paso 4.b - se trajo la función timeout de controller.js a helpers.js para que sea accesible desde model.js y controller.js.
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {

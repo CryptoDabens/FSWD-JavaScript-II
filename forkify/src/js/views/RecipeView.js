@@ -1,6 +1,5 @@
 import Fraction from 'fraction.js';
 
-
 const icons = new URL('../../img/icons.svg', import.meta.url).href; // 2.b.i.11.d
 
 // Avance 2 pag 3, Paso 2.b
@@ -8,7 +7,6 @@ class RecipeView {
     #parentElement = document.querySelector('.recipe'); // 2.b.i.1
     #data; // 2.b.i.2
 
-    
     render(data) { // 2.b.i.3
         this.#data = data; // 2.b.i.4
         const markup = this.#generateMarkup(); // 2.b.i.5
@@ -113,7 +111,6 @@ class RecipeView {
         this.#parentElement.innerHTML = '';
     }
     
-
     renderSpinner() {
     const markup = `
             <div class="spinner">
@@ -126,8 +123,14 @@ class RecipeView {
     this.#parentElement.insertAdjacentHTML('afterbegin', markup)
     
 }
+    // Avance 3 pag 14 Paso 1.b: En el archivo recipeView.js crea el método addHandlerRender dentro de la clase RecipeView y debajo del renderSpinner. Envíale como parámetro un handler y en el cuerpo, pega el código copiado del archivo controller.js
+    addHandlerRender(handler) {
+      const eventos = ['hashchange','load'];
+      eventos.forEach(ev => {
+      window.addEventListener(ev, handler); // Avance 3 pag 14 Paso 1.c cambiar el parámetro de la función anónima a handler, que es la función que se envía desde controller.js y que tiene el contexto para ejecutar controlRecipes.
+    });
+    }
 
 }
-
 
 export default new RecipeView(); // Avance 2 pag 4 2.b.ii

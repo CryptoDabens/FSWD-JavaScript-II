@@ -11,13 +11,13 @@ const recipeContainer = document.querySelector('.recipe'); // el "." es para ind
 
 const icons = new URL('../img/icons.svg', import.meta.url).href; // Parcel v2
 
-const timeout = function (s) {
+/*const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
       reject(new Error(`Request took too long! Timeout after ${s} second`));
     }, s * 1000);
   });
-};
+};*/ // Avance 2 pag 5 Paso 4.b.ii: Se elimina la función timeout y se pasa a helpers.js
 
 // https://forkify-api.herokuapp.com/v2
 
@@ -35,10 +35,8 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
     const id = window.location.hash.slice(1);
     if (!id) return; // A2.6 PAraque no se quede esperando si no se recibe "id".
     
-    recipeView.renderSpinner(); // Sustituye al renderSpinner(recipeContainer)
+    recipeView.renderSpinner(); // Sustituye a: renderSpinner(recipeContainer);
     
-    // renderSpinner(recipeContainer);
-
     // Avance 2 pag 2 1.b.ii. Manda a llamar la función model.loadRecipe con id como parámetro justo en donde se cortó el código que llevas al archivo model.js (como es una función asíncrona, recuerda colocar el await). Este bloque reemplaza el bloque que escribiste. Recuerda que model.state contiene una propiedad recipe, así que la desestructuración { recipe } la extrae.
     await model.loadRecipe(id);
     // const { recipe } = model.state; //// iii. Declara una constante recipe desestructurada y asígnale model.state. --> Avance 2 pag 4 Paso 2 Elimina esta instrucción
@@ -225,8 +223,15 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
 // A2.5a 
 // window.addEventListener('load',showRecipe);
 
-const eventos = ['hashchange','load'];
-eventos.forEach(ev => {
-  window.addEventListener(ev,controlRecipes);
-});
 
+// Avance 3 pag 14 Paso 1.a: Pide enviar esta función a recipeView.js.
+/* const eventos = ['hashchange','load'];
+eventos.forEach(ev => {
+  window.addEventListener(ev, controlRecipes);
+});*/
+
+function init() {
+  addHandlerRender(controlRecipes);
+}
+
+init();
