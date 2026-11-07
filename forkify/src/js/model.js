@@ -49,7 +49,7 @@ export async function loadRecipe(id) {
 
     // Paso 2:1.a.v.2: 
     catch (err) {
-        alert(`${err}💥💥💥💥`); // A3 pag 14 P2.c
+        throw err; //alert(`${err}💥💥💥💥`); // A3 pag 14 P2.c
 
     }
 }
