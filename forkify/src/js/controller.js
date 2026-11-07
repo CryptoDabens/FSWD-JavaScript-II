@@ -41,8 +41,7 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
     await model.loadRecipe(id);
     // const { recipe } = model.state; //// iii. Declara una constante recipe desestructurada y asígnale model.state. --> Avance 2 pag 4 Paso 2 Elimina esta instrucción
  
-    // console.log(recipe); // para prueba    
-    console.log(id);
+    // console.log(recipe); console.log(id); // para prueba    
     
     // Paso 15.b : b. Una vez que tengas el resultado, es necesario convertirlo a JSON. Para ello, declara una constante data, que será igual a resp, utilizando el método json() (no olvides utilizar el await).
     // A2.4.d Modifica en la función de búsqueda la URL estática para que ahora reciba la URL dinámico, pasándole la variable ${id}.
@@ -195,7 +194,7 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
   }  
   
   catch(err) {
-    alert(`Error: ${err}`);
+    recipeView.renderError(); // alert(`Error: ${err}`); sustituido por A3 pag 14 P2.b
   }
 
 }
@@ -231,7 +230,7 @@ eventos.forEach(ev => {
 });*/
 
 function init() {
-  addHandlerRender(controlRecipes);
+  recipeView.addHandlerRender(controlRecipes);
 }
 
 init();

@@ -6,7 +6,8 @@ const icons = new URL('../../img/icons.svg', import.meta.url).href; // 2.b.i.11.
 class RecipeView {
   #parentElement = document.querySelector('.recipe'); // 2.b.i.1
   #data; // 2.b.i.2
-
+  _errorMessage = 'We could not find that recipe. Please try another one!'; // Avance 4 pag 14 Paso 2.a.ii, ¿porqué no se pone "const _error;Message"?  
+  
   render(data) { // 2.b.i.3
     this.#data = data; // 2.b.i.4
     const markup = this.#generateMarkup(); // 2.b.i.5
@@ -133,19 +134,18 @@ class RecipeView {
 
   // Avance 3 pag 14 Paso 2, a. i-vii
   renderError(message = this._errorMessage) {
-    const _errorMessage = 'We could not find that recipe. Please try another one!';
-    const markuop = `
+    const markup = `
       <div class="error">
         <div>
           <svg>
-            <use href="${icons}.${message}#icon-alert-triangle"></use>
+            <use href="${icons}.#icon-alert-triangle"></use>
           </svg>
         </div>
         <p>${message}</p> 
-      </div>`
+      </div>`;
     this.#clean(); // 2.b.i.9.b
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);  
   }
 }
 
-export default new RecipeView();40 // Avance 2 pag 4 2.b.ii
+export default new RecipeView(); // Avance 2 pag 4 2.b.ii
