@@ -7,7 +7,7 @@ class SearchView {
         this.#clearInput(); // A3 pag 17 4.e.ii
         
         // Crea un método getQuery que retorne el valor del elemento con la clase      search__field utilizando el método querySelector del elemento padre. Crea un listener que va a escuchar el evento clic. 
-        this.#parentEL.addEventListener("click", getQuery);
+        //this.#parentEL.addEventListener("click", getQuery);
         
         return query;
     }

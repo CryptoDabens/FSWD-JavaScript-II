@@ -2,9 +2,9 @@
 // i. Importa todas las funciones como model desde el archivo model.js.
 import * as model from './model.js';
 // Avance 2 pag Paso 2.c.i.: Importa recipeView 
-import RecipeView from './views/RecipeView.js'; 
+import recipeView from './views/RecipeView.js'; 
 // Avance 3 apg 16 4.c.i: Importa searchView
-import SearchView from './views/searchView.js';
+import searchView from './views/searchView.js';
 
 
 // Avance 1. Inicio
