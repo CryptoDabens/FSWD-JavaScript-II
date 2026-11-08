@@ -2,8 +2,9 @@
 // i. Importa todas las funciones como model desde el archivo model.js.
 import * as model from './model.js';
 // Avance 2 pag Paso 2.c.i.: Importa recipeView 
-import recipeView from './views/RecipeView.js'; 
-
+import RecipeView from './views/RecipeView.js'; 
+// Avance 3 apg 16 4.c.i: Importa searchView
+import SearchView from './views/searchView.js';
 
 
 // Avance 1. Inicio
@@ -231,16 +232,20 @@ eventos.forEach(ev => {
 
 function init() {
   recipeView.addHandlerRender(controlRecipes);
+  searchView.addHandlerSearch(controlSearchResults); // A3 pag 17 4.d.ii.1.iii
 }
 
 async function controlSearchResults() {
   try {
+    const query = searchView.getQuery(); // A3 pag 16 4.c.ii
+    if (!query) return; // A3 pag 16 4.c.iii
     await model.loadSearchResults(query);
-    console.log(state.search.results); // A3 pag 16 3.a.i.2
+    console.log(model.state.search.results); // A3 pag 16 3.a.i.2
   }
   catch (err) {
     console.log(err); // A3 pag 16 3.a.ii
   }
+    
 }
 
 init();

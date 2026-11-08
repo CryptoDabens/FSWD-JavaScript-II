@@ -77,7 +77,7 @@ export async function loadSearchResults(query) {
             });
             state.search.query = query;
             state.search.results = results;
-            console.log(state.search.results); // A3 pag 16 2.b.ii
+            // console.log(state.search.results); // A3 pag 16 2.b.ii --> A3 p17 p4.d.ii.iv: Se quita porque se hace en el controlador, no en el modelo
         }
         
         catch (err) {
