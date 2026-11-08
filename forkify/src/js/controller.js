@@ -240,6 +240,7 @@ async function controlSearchResults() {
     const query = searchView.getQuery(); // A3 pag 16 4.c.ii
     if (!query) return; // A3 pag 16 4.c.iii
     resultsView.renderSpinner(); // A3 pag 18 5.g.ii
+    resultView.render(model.state.search.results); // A3 p19 P5.h.v
     await model.loadSearchResults(query);
     console.log(model.state.search.results); // A3 pag 16 3.a.i.2
   }
