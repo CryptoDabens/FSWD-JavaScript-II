@@ -3,6 +3,10 @@ const icons = new URL('../../img/icons.svg', import.meta.url).href;
 class View {
     _data;
     render(data) { // 2.b.i.3
+        // A3 p19 P5.iii
+        if(!data || (Array.isArray(data) && data.length === 0)) {
+            return this.renderError();            
+        }
         this._data = data; // 2.b.i.4
         const markup = this._generateMarkup(); // 2.b.i.5
         this._clean(); // 2.b.i.9.b

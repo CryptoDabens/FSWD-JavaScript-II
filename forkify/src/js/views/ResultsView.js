@@ -2,7 +2,9 @@ import View from './View.js';
 
 const icons = new URL('../../img/icons.svg', import.meta.url).href;
 class ResultsView extends View {
-    _parentElement = document.querySelector('.results')
+    _parentElement = document.querySelector('.results');
+    _errorMessage = 'No recipes found for your query'; // A3 p19 P5.i,ii
+    _message = '';
 
     _generateMarkup() {
         return this._data.map(this._generateMarkupPreview).join('');
