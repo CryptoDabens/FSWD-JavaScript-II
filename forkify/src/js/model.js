@@ -7,7 +7,14 @@ import { getJSON } from './helpers.js';
 // a. En la carpeta js, crea el archivo model.js y dentro del cuerpo del objeto agrega lo siguiente: 
 // i.Un objeto state que, a su vez, tendrá dentro de él un objeto recipe vacío.
 // ii. Exporta este estado para que lo pueda visualizar el controlador. 
-export const state = { recipe: {} };
+export const state = { 
+    recipe: {}, ;
+    // A3 pag 16 P2.a
+    search: { 
+        query: '',
+        results: [],
+       }, 
+};
 
 // iii. Crea la función asíncrona loadRecipe que será la encargada de obtener la receta de la API.
 // iv. Exporta la función loadRecipe.
@@ -42,11 +49,6 @@ export async function loadRecipe(id) {
             servings: recipe.servings,
             cookTime: recipe.cooking_time,
             ingredients: recipe.ingredients,
-            // A3 pag 16 P2.a
-            search: { 
-                query: '',
-                results: [],
-            }
         };
         // Paso 1.a.v.1-d.ii: 
         console.log(state.recipe); //Paso 1.a.v.3.c: se antepone "state" al objeto "recipe"
@@ -73,6 +75,9 @@ export async function loadSearchResults(query) {
                     image: rec.image_url,
                 };
             });
+            state.search.query = query;
+            state.search.results = results;
+            console.log(state.search.results); // A3 pag 16 2.b.ii
         }
         
         catch (err) {
