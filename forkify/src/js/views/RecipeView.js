@@ -1,27 +1,28 @@
 import Fraction from 'fraction.js';
+import View from './View.js'; // Avance 3 p18 P5.b.i
 
 const icons = new URL('../../img/icons.svg', import.meta.url).href; // 2.b.i.11.d
 
 // Avance 2 pag 3, Paso 2.b
-class RecipeView {
-  #parentElement = document.querySelector('.recipe'); // 2.b.i.1
-  #data; // 2.b.i.2
+class RecipeView extends View { // Avance 3 p18 P5.b.iii --> aade extends View para que RecipeView herede de View y pueda usar sus métodos y propiedades.
+  _parentElement = document.querySelector('.recipe'); // 2.b.i.1
+  _data; // 2.b.i.2
   _errorMessage = 'We could not find that recipe. Please try another one!'; // Avance 4 pag 14 Paso 2.a.ii, ¿porqué no se pone "const _error;Message"?  --> Porque renderError(message = this._errorMessage) necesita leer el texto desde la instancia, no desde una variable local. Un parámetro por defecto se evalúa en el momento de llamar a la función, y en ese momento this apunta al objeto RecipeView. Por eso el valor tiene que vivir como propiedad de la clase. Si lo declaras con "const" o "let" fuera de la clase, no se puede acceder a él desde dentro de la clase.  -- > _errorMessage no existe en el alcance del parámetro, porque el const queda dentro del cuerpo de la función, que todavía no se ha ejecutado cuando se evalúa el parámetro. Y si pones "const" fuera de la clase, this._errorMessage tampoco lo encuentra, porque no es una propiedad del objeto.
   _message = "Start by searching for a recipe or an ingredient. Have fun!";
 
   render(data) { // 2.b.i.3
-    this.#data = data; // 2.b.i.4
-    const markup = this.#generateMarkup(); // 2.b.i.5
-    this.#clean(); // 2.b.i.9.b
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    this._data = data; // 2.b.i.4
+    const markup = this._generateMarkup(); // 2.b.i.5
+    this._clean(); // 2.b.i.9.b
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  #generateMarkup() { // 2.b.i.6, 7, 8
+  _generateMarkup() { // 2.b.i.6, 7, 8
     return `        
         <figure class="recipe__fig">
-          <img src="${this.#data.image}" alt="Tomato" class="recipe__img" />
+          <img src="${this._data.image}" alt="Tomato" class="recipe__img" />
           <h1 class="recipe__title">
-            <span>${this.#data.title}</span>
+            <span>${this._data.title}</span>
           </h1>
         </figure>
 
@@ -30,14 +31,14 @@ class RecipeView {
             <svg class="recipe__info-icon">
               <use href="${icons}#icon-clock"></use>
             </svg>
-            <span class="recipe__info-data recipe__info-data--minutes">${this.#data.cookTime}</span>
+            <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookTime}</span>
             <span class="recipe__info-text">minutes</span>
           </div>
           <div class="recipe__info">
             <svg class="recipe__info-icon">
               <use href="${icons}#icon-users"></use>
             </svg>
-            <span class="recipe__info-data recipe__info-data--people">${this.#data.servings}</span>
+            <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
@@ -69,7 +70,7 @@ class RecipeView {
         <div class="recipe__ingredients">
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
-            ${this.#data.ingredients
+            ${this._data.ingredients
         .map(ing => {
           return `
                   <li class="recipe__ingredient">
@@ -92,12 +93,12 @@ class RecipeView {
           <h2 class="heading--2">How to cook it</h2>
           <p class="recipe__directions-text">
             This recipe was carefully designed and tested by
-            <span class="recipe__publisher">${this.#data.publisher}</span>. Please check out
+            <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
             directions at their website.
           </p>
           <a
             class="btn--small recipe__btn"
-            href="${this.#data.sourceUrl}"
+            href="${this._data.sourceUrl}"
             target="_blank"
           >
             <span>Directions</span>
@@ -109,8 +110,8 @@ class RecipeView {
         `;
   }
 
-  #clean() { // 2.b.i.9.a
-    this.#parentElement.innerHTML = '';
+  _clean() { // 2.b.i.9.a
+    this._parentElement.innerHTML = '';
   }
 
   renderSpinner() {
@@ -121,8 +122,8 @@ class RecipeView {
                 </svg>
             </div>`
 
-    this.#parentElement.innerHTML = '';
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup)
+    this._parentElement.innerHTML = '';
+    this._parentElement.insertAdjacentHTML('afterbegin', markup)
 
   }
   // Avance 3 pag 14 Paso 1.b: En el archivo recipeView.js crea el método addHandlerRender dentro de la clase RecipeView y debajo del renderSpinner. Envíale como parámetro un handler y en el cuerpo, pega el código copiado del archivo controller.js
@@ -144,8 +145,8 @@ class RecipeView {
         </div>
         <p>${message}</p> 
       </div>`;
-    this.#clean(); // 2.b.i.9.b
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);  
+    this._clean(); // 2.b.i.9.b
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);  
   }
 
   // Avance 3 pag 15 Paso 3, a-c
@@ -159,8 +160,8 @@ class RecipeView {
         </div>
         <p>${message}</p> 
       </div>`;
-    this.#clean();
-    this.#parentElement.insertAdjacentHTML('afterbegin', markup);  
+    this._clean();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);  
   }
 
 }

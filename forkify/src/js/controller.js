@@ -5,7 +5,7 @@ import * as model from './model.js';
 import recipeView from './views/RecipeView.js'; 
 // Avance 3 apg 16 4.c.i: Importa searchView
 import searchView from './views/searchView.js';
-
+import resultsView from './views/ResultsView.js'; // A3 pag 18 5.g.i
 
 // Avance 1. Inicio
 const recipeContainer = document.querySelector('.recipe'); // el "." es para indicar que es una clase, y se debe usar querySelector, si se buscara un "id" se utilizaría getElementById('nombre')
@@ -237,6 +237,7 @@ function init() {
 
 async function controlSearchResults() {
   try {
+    resultsView.renderSpinner(); // A3 pag 18 5.g.ii
     const query = searchView.getQuery(); // A3 pag 16 4.c.ii
     if (!query) return; // A3 pag 16 4.c.iii
     await model.loadSearchResults(query);
@@ -249,4 +250,4 @@ async function controlSearchResults() {
 }
 
 init();
-controlSearchResults(); // A3 pag 16 3.a.iii
+// controlSearchResults(); // A3 pag 16 3.a.iii <-- Era de prueba, se quita porque ya se llama desde init()
