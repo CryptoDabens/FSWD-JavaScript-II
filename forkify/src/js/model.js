@@ -1,7 +1,6 @@
 // Avance 2 pag Paso 3.c
-import { API_URL } from './config.js';
+import { API_URL, RES_PER_PAGE } from './config.js';
 import { getJSON } from './helpers.js';
-import { RES_PER_PAGE } from './config.js';
 
 // Modelo.js
 // Aquí se escribirá el modelo completo y tendrá objetos para la receta, la búsqueda y los marcadores y una función para cargar las recetas. Para realizar esta funcionalidad, haz lo siguiente: 
@@ -14,8 +13,9 @@ export const state = {
     search: { 
         query: '',
         results: [],
+        page: 1, // A4 pag 20 P1.b.ii.1 
        }, 
-    page: 1, // A4 pag 20 P1.b.ii.1  
+     
     resultsPerPage: RES_PER_PAGE, // A4 pag 20 P1.b.ii.2   
 };
 
