@@ -2,7 +2,7 @@
 // i. Importa todas las funciones como model desde el archivo model.js.
 import * as model from './model.js';
 // Avance 2 pag Paso 2.c.i.: Importa recipeView 
-import recipeView from './views/RecipeView.js'; 
+import recipeView from './views/RecipeView.js';
 // Avance 3 apg 16 4.c.i: Importa searchView
 import searchView from './views/searchView.js';
 import resultsView from './views/ResultsView.js'; // A3 pag 18 5.g.i
@@ -28,22 +28,22 @@ The async keyword before a function makes the function return a promise.
 This is true even if you return a normal value.
 If the function returns a value, JavaScript automatically wraps that value in a Promise.*/
 /* Paso 15.a:  
-Crea una función asíncrona llamada showRecipe. En el try, crea una constante "resp",iguálala a un "await" para que espere el resultado de la función de búsqueda (fetch), la cual devolverá una promesa, y pásale como parámetro la siguiente URL válida para la API:*/ 
+Crea una función asíncrona llamada showRecipe. En el try, crea una constante "resp",iguálala a un "await" para que espere el resultado de la función de búsqueda (fetch), la cual devolverá una promesa, y pásale como parámetro la siguiente URL válida para la API:*/
 
 async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nombre de la función de ShowRecipe a controlRecipes
   try {
     //A2.4a,b,c
     const id = window.location.hash.slice(1);
     if (!id) return; // A2.6 PAraque no se quede esperando si no se recibe "id".
-    
+
     recipeView.renderSpinner(); // Sustituye a: renderSpinner(recipeContainer);
-    
+
     // Avance 2 pag 2 1.b.ii. Manda a llamar la función model.loadRecipe con id como parámetro justo en donde se cortó el código que llevas al archivo model.js (como es una función asíncrona, recuerda colocar el await). Este bloque reemplaza el bloque que escribiste. Recuerda que model.state contiene una propiedad recipe, así que la desestructuración { recipe } la extrae.
     await model.loadRecipe(id);
     // const { recipe } = model.state; //// iii. Declara una constante recipe desestructurada y asígnale model.state. --> Avance 2 pag 4 Paso 2 Elimina esta instrucción
- 
+
     // console.log(recipe); console.log(id); // para prueba    
-    
+
     // Paso 15.b : b. Una vez que tengas el resultado, es necesario convertirlo a JSON. Para ello, declara una constante data, que será igual a resp, utilizando el método json() (no olvides utilizar el await).
     // A2.4.d Modifica en la función de búsqueda la URL estática para que ahora reciba la URL dinámico, pasándole la variable ${id}.
 
@@ -52,19 +52,19 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
     * const data = await resp.json()
     * La validación if (!resp.ok)
     * Los console.log de la respuesta de la API (paso 15.c)
-    * let recipe = data.data.recipe y la desestructuración a camelCase*/ 
-    
+    * let recipe = data.data.recipe y la desestructuración a camelCase*/
+
     // const resp = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
-    
+
     // const data = await resp.json(); // parsea resp a JSON // Se elimina en el avance 2 1.b
     // if (!resp.ok)
-      // throw new Error(`Recipe not found (${resp.status})`); // En este proyecto concreto, parsear primero tiene sentido porque quieres recuperar el mensaje que viene en el cuerpo del error. En una API genérica o desconocida, revisar resp.ok antes suele ser más seguro.throw detiene la ejecución de la función actual y devuelve el control al catch más cercano
+    // throw new Error(`Recipe not found (${resp.status})`); // En este proyecto concreto, parsear primero tiene sentido porque quieres recuperar el mensaje que viene en el cuerpo del error. En una API genérica o desconocida, revisar resp.ok antes suele ser más seguro.throw detiene la ejecución de la función actual y devuelve el control al catch más cercano
 
     // Paso 15.c:
     // console.log('RESPUESTA API');
     // console.log(resp);
     // console.log(data);
-    
+
     // Paso 15.j: Para poder visualizar los datos que se necesitan desplegar en la pantalla, crea la variable recipe del tipo objeto e iguálala a data.data
     // let recipe = data.data.recipe; // Aquí no funciona con "const" ¿por qué?. Resp: porque la línea siguiente hace recipe = { ... }, y eso reasigna la variable. Con const el JavaScript marca error. Al mover la desestructuración al modelo, esa reasignación desaparece y const ya no causa problema.
 
@@ -83,9 +83,9 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
 
     // Paso 15.l: 
     // console.log(recipe);
-    
+
     // Paso 16 y 17:  Como puedes notar, no se visualiza el contenido de la consulta en la página. para hacerlo, ve al archivo index.html y copia desde la línea 161 a 253 al archivo controller.js dentro de la función en la variable markup. Utiliza template string (usar backticks --> ` `).
-    
+
     // Debe salir porque ya se pasó a RecipeView.js
     /* const markup = `        
         <figure class="recipe__fig">
@@ -179,22 +179,22 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
         `;
     */
     // Paso 18: Como puedes observar, aún se visualiza el mensaje inicial. Para quitarlo, utiliza el método innerHTML sobre recipeContainer y asígnale una cadena vacía.
-    
+
     //recipeContainer.innerHTML = '';
-    
+
     // Paso 19: Para visualizar el nuevo contenido en la página, utiliza el método insertAdjacentHTML en el recipeContainer y pásale como parámetros afterbegin y la variable markup.
-    
+
     // recipeContainer.insertAdjacentHTML('afterbegin', markup); // Arg 1 posición y Arg 2, la variable
-    
+
     // Paso 20: Recorre el arreglo recipe.ingredients y aplícale la función "map" para que se puedan visualizar cada uno de los elementos. Pásale como argumentos al map la función flecha img que envuelve al elemento de la lista con clase recipe_ingredient.
-    
+
     // Avance 2 pag 3 Paso 2.c.iv: Instancia recipeView.render y pásale como parámetro model.state.recipe en el lugar donde se cortó el código que se colocó en la vista.
     recipeView.render(model.state.recipe);
-    
-        
-  }  
-  
-  catch(err) {
+
+
+  }
+
+  catch (err) {
     recipeView.renderError(); // alert(`Error: ${err}`); sustituido por A3 pag 14 P2.b
   }
 
@@ -237,16 +237,15 @@ function init() {
 
 async function controlSearchResults() {
   try {
-    resultsView.renderSpinner(); // A3 pag 18 5.g.ii
     const query = searchView.getQuery(); // A3 pag 16 4.c.ii
     if (!query) return; // A3 pag 16 4.c.iii
+    resultsView.renderSpinner(); // A3 pag 18 5.g.ii
     await model.loadSearchResults(query);
     console.log(model.state.search.results); // A3 pag 16 3.a.i.2
   }
   catch (err) {
     console.log(err); // A3 pag 16 3.a.ii
   }
-    
 }
 
 init();

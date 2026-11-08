@@ -6,16 +6,16 @@ const icons = new URL('../../img/icons.svg', import.meta.url).href; // 2.b.i.11.
 // Avance 2 pag 3, Paso 2.b
 class RecipeView extends View { // Avance 3 p18 P5.b.iii --> aade extends View para que RecipeView herede de View y pueda usar sus métodos y propiedades.
   _parentElement = document.querySelector('.recipe'); // 2.b.i.1
-  _data; // 2.b.i.2
+  // _data; // 2.b.i.2
   _errorMessage = 'We could not find that recipe. Please try another one!'; // Avance 4 pag 14 Paso 2.a.ii, ¿porqué no se pone "const _error;Message"?  --> Porque renderError(message = this._errorMessage) necesita leer el texto desde la instancia, no desde una variable local. Un parámetro por defecto se evalúa en el momento de llamar a la función, y en ese momento this apunta al objeto RecipeView. Por eso el valor tiene que vivir como propiedad de la clase. Si lo declaras con "const" o "let" fuera de la clase, no se puede acceder a él desde dentro de la clase.  -- > _errorMessage no existe en el alcance del parámetro, porque el const queda dentro del cuerpo de la función, que todavía no se ha ejecutado cuando se evalúa el parámetro. Y si pones "const" fuera de la clase, this._errorMessage tampoco lo encuentra, porque no es una propiedad del objeto.
   _message = "Start by searching for a recipe or an ingredient. Have fun!";
 
-  render(data) { // 2.b.i.3
+  /*render(data) { // 2.b.i.3
     this._data = data; // 2.b.i.4
     const markup = this._generateMarkup(); // 2.b.i.5
     this._clean(); // 2.b.i.9.b
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
+  }*/
 
   _generateMarkup() { // 2.b.i.6, 7, 8
     return `        
@@ -110,11 +110,11 @@ class RecipeView extends View { // Avance 3 p18 P5.b.iii --> aade extends View p
         `;
   }
 
-  _clean() { // 2.b.i.9.a
+  /*_clean() { // 2.b.i.9.a
     this._parentElement.innerHTML = '';
-  }
+  }*/
 
-  renderSpinner() {
+  /*renderSpinner() {
     const markup = `
             <div class="spinner">
                 <svg>
@@ -125,7 +125,8 @@ class RecipeView extends View { // Avance 3 p18 P5.b.iii --> aade extends View p
     this._parentElement.innerHTML = '';
     this._parentElement.insertAdjacentHTML('afterbegin', markup)
 
-  }
+  }*/
+
   // Avance 3 pag 14 Paso 1.b: En el archivo recipeView.js crea el método addHandlerRender dentro de la clase RecipeView y debajo del renderSpinner. Envíale como parámetro un handler y en el cuerpo, pega el código copiado del archivo controller.js
   addHandlerRender(handler) {
     const eventos = ['hashchange', 'load'];
@@ -135,7 +136,7 @@ class RecipeView extends View { // Avance 3 p18 P5.b.iii --> aade extends View p
   }
 
   // Avance 3 pag 14 Paso 2, a. i-vii
-  renderError(message = this._errorMessage) {
+  /*renderError(message = this._errorMessage) {
     const markup = `
       <div class="error">
         <div>
@@ -147,10 +148,10 @@ class RecipeView extends View { // Avance 3 p18 P5.b.iii --> aade extends View p
       </div>`;
     this._clean(); // 2.b.i.9.b
     this._parentElement.insertAdjacentHTML('afterbegin', markup);  
-  }
+  }*/
 
   // Avance 3 pag 15 Paso 3, a-c
-  renderMessage(message = this._message) {
+  /*renderMessage(message = this._message) {
     const markup = `
       <div class="message">
         <div>
@@ -162,7 +163,7 @@ class RecipeView extends View { // Avance 3 p18 P5.b.iii --> aade extends View p
       </div>`;
     this._clean();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);  
-  }
+  }*/
 
 }
 
