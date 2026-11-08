@@ -146,6 +146,22 @@ class RecipeView {
     this.#clean(); // 2.b.i.9.b
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);  
   }
+
+  // Avance 3 pag 15 Paso 3, a-c
+  renderMessage(message = this._message) {
+    const markup = `
+      <div class="message">
+        <div>
+          <svg>
+            <use href="${icons}#icon-smile"></use>
+          </svg>
+        </div>
+        <p>${message}</p> 
+      </div>`;
+    this.#clean();
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);  
+  }
+
 }
 
 export default new RecipeView(); // Avance 2 pag 4 2.b.ii
