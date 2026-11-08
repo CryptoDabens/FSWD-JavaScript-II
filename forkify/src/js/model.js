@@ -52,4 +52,25 @@ export async function loadRecipe(id) {
         throw err; //alert(`${err}💥💥💥💥`); // A3 pag 14 P2.c
 
     }
+
+    async function loadSearchResults(query) {
+        try { 
+            const data = await getJSON(`${API_URL}/?search=${query}`); 
+        
+            data.data.recipe.map(rec => {
+                return {
+                    id: rec.id,
+                    title: rec.title,
+                    publisher: rec.publisher,
+                    image: rec.image_url,
+                };
+            })
+        }
+        
+        catch (err) {
+            console.log(`${err}💥💥💥💥`);
+        }
+    }
+
+    loadSearchResults('pizza');
 }
