@@ -233,4 +233,15 @@ function init() {
   recipeView.addHandlerRender(controlRecipes);
 }
 
+async function controlSearchResults() {
+  try {
+    await model.loadSearchResults(query);
+    console.log(state.search.results); // A3 pag 16 3.a.i.2
+  }
+  catch (err) {
+    console.log(err); // A3 pag 16 3.a.ii
+  }
+}
+
 init();
+controlSearchResults(); // A3 pag 16 3.a.iii

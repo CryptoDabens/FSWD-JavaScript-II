@@ -8,7 +8,7 @@ import { getJSON } from './helpers.js';
 // i.Un objeto state que, a su vez, tendrá dentro de él un objeto recipe vacío.
 // ii. Exporta este estado para que lo pueda visualizar el controlador. 
 export const state = { 
-    recipe: {}, ;
+    recipe: {}, 
     // A3 pag 16 P2.a
     search: { 
         query: '',
@@ -87,4 +87,4 @@ export async function loadSearchResults(query) {
 }
 
 // Prueba del paso 1.g; quítala cuando el controlador llame a la función (paso 3.a)
-loadSearchResults('pizza'); // A3 pag 15 1.g
+// loadSearchResults('pizza'); // A3 pag 15 1.g
