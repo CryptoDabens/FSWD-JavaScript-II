@@ -42,6 +42,11 @@ export async function loadRecipe(id) {
             servings: recipe.servings,
             cookTime: recipe.cooking_time,
             ingredients: recipe.ingredients,
+            // A3 pag 16 P2.a
+            search: { 
+                query: '',
+                results: [],
+            }
         };
         // Paso 1.a.v.1-d.ii: 
         console.log(state.recipe); //Paso 1.a.v.3.c: se antepone "state" al objeto "recipe"
@@ -53,24 +58,28 @@ export async function loadRecipe(id) {
 
     }
 
-    async function loadSearchResults(query) {
+    
+}
+
+export async function loadSearchResults(query) {
         try { 
-            const data = await getJSON(`${API_URL}/?search=${query}`); 
+            const data = await getJSON(`${API_URL}?search=${query}`); 
         
-            data.data.recipe.map(rec => {
+            const results = data.data.recipes.map(rec => {
                 return {
                     id: rec.id,
                     title: rec.title,
                     publisher: rec.publisher,
                     image: rec.image_url,
                 };
-            })
+            });
         }
         
         catch (err) {
-            console.log(`${err}💥💥💥💥`);
+            console.log(`${err}💥💥💥💥`); // A3 pag 15 1.e
+            throw err; // A3 pag 15 1.f
         }
-    }
-
-    loadSearchResults('pizza');
 }
+
+// Prueba del paso 1.g; quítala cuando el controlador llame a la función (paso 3.a)
+loadSearchResults('pizza'); // A3 pag 15 1.g
