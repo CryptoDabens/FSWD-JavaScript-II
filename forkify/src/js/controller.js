@@ -242,7 +242,7 @@ async function controlSearchResults() {
     resultsView.renderSpinner(); // A3 pag 18 5.g.ii
     
     await model.loadSearchResults(query);
-    resultsView.render(model.state.search.results); // A3 p19 P5.h.v
+    resultsView.render(model.getSearchResultsPage); // A3 p19 P5.h.v
     console.log(model.state.search.results); // A3 pag 16 3.a.i.2
   }
   catch (err) {

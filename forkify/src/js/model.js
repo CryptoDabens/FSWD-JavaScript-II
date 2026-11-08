@@ -1,6 +1,7 @@
 // Avance 2 pag Paso 3.c
 import { API_URL } from './config.js';
 import { getJSON } from './helpers.js';
+import { RES_PER_PAGE } from './config.js';
 
 // Modelo.js
 // Aquí se escribirá el modelo completo y tendrá objetos para la receta, la búsqueda y los marcadores y una función para cargar las recetas. Para realizar esta funcionalidad, haz lo siguiente: 
@@ -14,6 +15,8 @@ export const state = {
         query: '',
         results: [],
        }, 
+    page: 1, // A4 pag 20 P1.b.ii.1  
+    resultsPerPage: RES_PER_PAGE, // A4 pag 20 P1.b.ii.2   
 };
 
 // iii. Crea la función asíncrona loadRecipe que será la encargada de obtener la receta de la API.
@@ -88,3 +91,11 @@ export async function loadSearchResults(query) {
 
 // Prueba del paso 1.g; quítala cuando el controlador llame a la función (paso 3.a)
 // loadSearchResults('pizza'); // A3 pag 15 1.g
+
+// Avance 4 pag 20 Paso 1
+export function getSearchResultsPage(page = state.search.page) {
+    state.search.page = page; // A4 pag 20 P1.b.ii.3
+    const start = (page - 1) * state.resultsPerPage; // A4 pag 20 P1.b.ii.4
+    const end = page * state.resultsPerPage;
+    return state.search.results.slice(start, end); // A4 pag 20 P1.b.ii.5
+}
