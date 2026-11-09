@@ -1,11 +1,8 @@
-// Avance 2: Página 2, Paso 1.b: En el controller.js realiza las siguientes modificaciones:
-// i. Importa todas las funciones como model desde el archivo model.js.
-import * as model from './model.js';
-// Avance 2 pag Paso 2.c.i.: Importa recipeView 
-import recipeView from './views/RecipeView.js';
-// Avance 3 apg 16 4.c.i: Importa searchView
-import searchView from './views/searchView.js';
+import * as model from './model.js'; // A2 p2 P1.b.i: Importa todas las funciones como model desde model.js.
+import recipeView from './views/RecipeView.js'; // Avance 2 pag Paso 2.c.i.: Importa recipeView 
+import searchView from './views/searchView.js'; // Avance 3 apg 16 4.c.i: Importa searchView
 import resultsView from './views/ResultsView.js'; // A3 pag 18 5.g.i
+import paginationView from './views/paginationView.js'; // A4 p22 P4.b.i
 
 // Avance 1. Inicio
 const recipeContainer = document.querySelector('.recipe'); // el "." es para indicar que es una clase, y se debe usar querySelector, si se buscara un "id" se utilizaría getElementById('nombre')
@@ -243,6 +240,7 @@ async function controlSearchResults() {
     
     await model.loadSearchResults(query);
     resultsView.render(model.getSearchResultsPage()); // A3 p19 P5.h.v
+    paginationView.render(model.state.search); // A4 p22 P4.b.ii: Se pasa model.state.search porque PaginationView necesita page, results y resultsPerPage, y los tres están dentro de search
     console.log(model.state.search.results); // A3 pag 16 3.a.i.2
   }
   catch (err) {

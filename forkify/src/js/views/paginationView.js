@@ -2,8 +2,16 @@ import View from "./View.js";
 const icons = new URL('../../img/icons.svg', import.meta.url).href;
 
 class PaginationView extends View {
-    _parentElement = document.querySelector('.pagination');
+    _parentEl = document.querySelector('.pagination');
     
+    addHandlerClick(handler) {
+      this._parentEl.addEventListener('click', function (e) {
+        const btn = e.target.closest('.btn--inline'); // busca el botón más cercano al elemento clicado
+        if (!btn) return; // si el clic no fue en un botón, no hagas nada. Evita un error. La guía no lo pide, pero sin esta línea btn.dataset falla.
+        const goToPage = btn.dataset.goto; // lee el atributo data-goto que pusiste en el HTML del botón.
+        console.log(goToPage); // lo que pide la guía en 4.a.iv
+      });
+    }
 
     _generateMarkup() {
         const curPage = this._data.page;
@@ -48,5 +56,9 @@ class PaginationView extends View {
         if (curPage === 1 && numPages === 1) {
             return '';
         }
+        
+        return ''; // Si no se cumple ninguna condición, retornaria undefined
     }
 }
+
+export default new PaginationView (); // A4 p22 P4.a.v: Exporta un nuevo objeto de PaginationView por defecto. Sin esta línea, el controlador no puede importar la vista.
