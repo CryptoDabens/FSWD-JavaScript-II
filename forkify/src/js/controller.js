@@ -230,6 +230,7 @@ eventos.forEach(ev => {
 function init() {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults); // A3 pag 17 4.d.ii.1.iii
+  paginationView.addHandlerClick(() => {});
 }
 
 async function controlSearchResults() {
@@ -240,8 +241,8 @@ async function controlSearchResults() {
     
     await model.loadSearchResults(query);
     resultsView.render(model.getSearchResultsPage()); // A3 p19 P5.h.v
-    paginationView.render(model.state.search); // A4 p22 P4.b.ii: Se pasa model.state.search porque PaginationView necesita page, results y resultsPerPage, y los tres están dentro de search
-    console.log(model.state.search.results); // A3 pag 16 3.a.i.2
+    paginationView.render(model.state.search); // A4 p22 P4.b.ii: Se pasa model.state.search porque paginationView necesita page, results y resultsPerPage, y los tres están dentro de search
+    // console.log(model.state.search.results); // A3 pag 16 3.a.i.2
   }
   catch (err) {
     console.log(err); // A3 pag 16 3.a.ii
