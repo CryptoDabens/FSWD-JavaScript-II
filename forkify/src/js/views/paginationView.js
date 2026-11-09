@@ -2,10 +2,10 @@ import View from "./View.js";
 const icons = new URL('../../img/icons.svg', import.meta.url).href;
 
 class PaginationView extends View {
-    _parentEl = document.querySelector('.pagination');
+    _parentElement = document.querySelector('.pagination');
     
     addHandlerClick(handler) {
-      this._parentEl.addEventListener('click', function (e) {
+      this._parentElement.addEventListener('click', function (e) {
         const btn = e.target.closest('.btn--inline'); // busca el botón más cercano al elemento clicado
         if (!btn) return; // si el clic no fue en un botón, no hagas nada. Evita un error. La guía no lo pide, pero sin esta línea btn.dataset falla.
         const goToPage = btn.dataset.goto; // lee el atributo data-goto que pusiste en el HTML del botón.
