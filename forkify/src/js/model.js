@@ -14,9 +14,8 @@ export const state = {
         query: '',
         results: [],
         page: 1, // A4 pag 20 P1.b.ii.1 
+        resultsPerPage: RES_PER_PAGE // A4 pag 20 P1.b.ii.2   
        }, 
-     
-    resultsPerPage: RES_PER_PAGE, // A4 pag 20 P1.b.ii.2   
 };
 
 // iii. Crea la función asíncrona loadRecipe que será la encargada de obtener la receta de la API.
@@ -94,8 +93,8 @@ export async function loadSearchResults(query) {
 
 // Avance 4 pag 20 Paso 1
 export function getSearchResultsPage(page = state.search.page) {
-    state.search.page = page; // A4 pag 20 P1.b.ii.3
-    const start = (page - 1) * state.resultsPerPage; // A4 pag 20 P1.b.ii.4
-    const end = page * state.resultsPerPage;
-    return state.search.results.slice(start, end); // A4 pag 20 P1.b.ii.5
+    state.search.page = page;
+    const start = (page - 1) * state.search.resultsPerPage;
+    const end = page * state.search.resultsPerPage;
+    return state.search.results.slice(start, end);
 }
