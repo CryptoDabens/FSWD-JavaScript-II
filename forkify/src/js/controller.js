@@ -1,11 +1,11 @@
-import * as model from './model.js'; // A2 p2 P1.b.i: Importa todas las funciones como model desde model.js.
-import recipeView from './views/RecipeView.js'; // Avance 2 pag Paso 2.c.i.: Importa recipeView 
-import searchView from './views/searchView.js'; // Avance 3 apg 16 4.c.i: Importa searchView
+import * as model from './model.js'; // A2 p2 P1.b.i: Importa todas las funciones como model.
+import recipeView from './views/RecipeView.js'; // Avance 2 pag Paso 2.c.i
+import searchView from './views/searchView.js'; // Avance 3 apg 16 4.c.i
 import resultsView from './views/ResultsView.js'; // A3 pag 18 5.g.i
 import paginationView from './views/paginationView.js'; // A4 p22 P4.b.i
 
 // Avance 1. Inicio
-const recipeContainer = document.querySelector('.recipe'); // el "." es para indicar que es una clase, y se debe usar querySelector, si se buscara un "id" se utilizaría getElementById('nombre')
+const recipeContainer = document.querySelector('.recipe'); // el "." es para indicar que es una clase, y se debe usar querySelector, si se buscara un "id" se utilizaría getElementById('nombre').
 
 const icons = new URL('../img/icons.svg', import.meta.url).href; // Parcel v2
 
@@ -31,7 +31,7 @@ async function controlRecipes() { // Avance 2 pag 4 Paso 2. c.ii Cambiar el nomb
   try {
     //A2.4a,b,c
     const id = window.location.hash.slice(1);
-    if (!id) return; // A2.6 PAraque no se quede esperando si no se recibe "id".
+    if (!id) return; // A2.6 Para que no se quede esperando si no se recibe "id".
 
     recipeView.renderSpinner(); // Sustituye a: renderSpinner(recipeContainer);
 
@@ -227,10 +227,17 @@ eventos.forEach(ev => {
   window.addEventListener(ev, controlRecipes);
 });*/
 
+function controlPagination(goToPage) {
+  // 1. Renderiza los nuevos resultados de la página correspondiente 
+  resultsView.render(model.getSearchResultsPage(goToPage));
+  // 2. Renderiza los nuevos botones de navegación (anterior / siguiente)
+  paginationView.render(model.state.search); 
+}
+
 function init() {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults); // A3 pag 17 4.d.ii.1.iii
-  paginationView.addHandlerClick(() => {});
+  paginationView.addHandlerClick(controlPagination); /// ??????
 }
 
 async function controlSearchResults() {

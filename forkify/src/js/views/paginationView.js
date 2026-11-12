@@ -8,13 +8,14 @@ class PaginationView extends View {
       this._parentElement.addEventListener('click', function (e) {
         const btn = e.target.closest('.btn--inline'); // busca el botón más cercano al elemento clicado
         if (!btn) return; // si el clic no fue en un botón, no hagas nada. Evita un error. La guía no lo pide, pero sin esta línea btn.dataset falla.
-        const goToPage = btn.dataset.goto; // lee el atributo data-goto que pusiste en el HTML del botón.
+        const goToPage = Number(btn.dataset.goto); // lee el atributo data-goto que pusiste en el HTML del botón. La guía no dice usar "Number".
+        handler(goToPage); // no viene en la guía
         console.log(goToPage); // lo que pide la guía en 4.a.iv
       });
     }
 
     _generateMarkup() {
-        const curPage = this._data.page;
+        const curPage = +this._data.page;
         const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
 
         if (curPage === 1 && numPages > 1) {
