@@ -4,10 +4,6 @@ import searchView from './views/searchView.js';
 import resultsView from './views/ResultsView.js';
 import paginationView from './views/paginationView.js';
 
-// Avance 1. Inicio
-const recipeContainer = document.querySelector('.recipe'); // busca en el HTML | El "." es para indicar que es una "class" y se debe usar querySelector. Si se buscara un "id" se utilizaría getElementById('nombre').
-const icons = new URL('../img/icons.svg', import.meta.url).href; // fuente de iconos 
-
 async function controlRecipes() {
   try {
     const id = window.location.hash.slice(1);
@@ -44,7 +40,8 @@ async function controlSearchResults() {
     paginationView.render(model.state.search); // Se pasa model.state.search porque paginationView necesita page, results y resultsPerPage, y los tres están dentro de search
   }
   catch (err) {
-    console.log(err); // A3 pag 16 3.a.ii
+    console.log(err);
+    resultsView.renderError(); // Se agrega esta línea que no viene en la guía. Si la búsqueda falla, el spinner se queda girando, para que el usuario vea el error.
   }
 }
 

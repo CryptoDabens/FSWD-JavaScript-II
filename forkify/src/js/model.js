@@ -53,6 +53,7 @@ export async function loadSearchResults(query) {
         });
         state.search.query = query;
         state.search.results = results;
+        state.search.page = 1; // No viene en la guía, pero es necesario para hacer que una nueva búsqueda arroje resultados una vez que se ha avanzado en la paginación.
     }
 
     catch (err) {
