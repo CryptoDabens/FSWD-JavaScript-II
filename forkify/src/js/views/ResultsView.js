@@ -2,16 +2,16 @@ import View from './View.js';
 
 const icons = new URL('../../img/icons.svg', import.meta.url).href;
 class ResultsView extends View {
-    _parentElement = document.querySelector('.results');
-    _errorMessage = 'No recipes found for your query'; // A3 p19 P5.i,ii
-    _message = '';
+  _parentElement = document.querySelector('.results');
+  _errorMessage = 'No recipes found for your query';
+  _message = '';
 
-    _generateMarkup() {
-        return this._data.map(this._generateMarkupPreview).join('');
-    }
+  _generateMarkup() {
+    return this._data.map(this._generateMarkupPreview).join('');
+  }
 
-    _generateMarkupPreview(result) {
-        return `
+  _generateMarkupPreview(result) {
+    return `
         <li class="preview">
             <a class="preview__link" href="#${result.id}">
               <figure class="preview__fig">
@@ -28,7 +28,7 @@ class ResultsView extends View {
               </div>
             </a>
         </li>`;
-    }
+  }
 
 }
 
