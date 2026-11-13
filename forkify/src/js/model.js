@@ -42,7 +42,7 @@ export async function loadRecipe(id) {
 
 export async function loadSearchResults(query) {
     try {
-        const data = await getJSON(`${API_URL}?search=${query}`);
+        const data = await getJSON(`${API_URL}?search=${encodeURIComponent(query)}`); // encodeURIComponent: La función reemplaza caracteres especiales  por un código seguro que empieza con % (ejemplo " " --> %20 para poder ahcer búsquedas como "rice & beans". Sin ella solo viajaría "rice")
         const results = data.data.recipes.map(rec => {
             return {
                 id: rec.id,
@@ -53,7 +53,7 @@ export async function loadSearchResults(query) {
         });
         state.search.query = query;
         state.search.results = results;
-        state.search.page = 1; // No viene en la guía, pero es necesario para hacer que una nueva búsqueda arroje resultados una vez que se ha avanzado en la paginación.
+        state.search.page = 1; // No viene en la guía, pero es necesario para hacer que una nueva búsqueda una vez que se ha avanzado en la paginación.
     }
 
     catch (err) {
